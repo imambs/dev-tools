@@ -1,0 +1,68 @@
+<aside class="sidebar" id="sidebar" aria-label="Developer tools navigation">
+  <div class="sidebar-head">
+    <a class="brand" href="/" aria-label="DevKit Studio home">
+      <span class="brand-mark"><i class="bi bi-braces"></i></span>
+      <span class="brand-copy">
+        <strong>DEVKIT</strong>
+        <small>Studio</small>
+      </span>
+    </a>
+    <button class="sidebar-close d-lg-none" id="mobileSidebarClose" type="button" aria-label="Close sidebar" data-i18n-aria="closeSidebar">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-search d-lg-none">
+    <i class="bi bi-search"></i>
+    <input type="search" id="mobileSearch" placeholder="Search tools..." data-i18n-placeholder="searchTools" aria-label="Search tools" data-i18n-aria="searchTools" />
+  </div>
+
+  <nav class="sidebar-nav" id="sidebarNav">
+    <button class="nav-section active" type="button" data-bs-toggle="collapse" data-bs-target="#developmentMenu" aria-expanded="true">
+      <span><i class="bi bi-code-slash"></i><span class="nav-section-label" data-i18n="development">Development</span></span>
+      <i class="bi bi-chevron-down section-arrow"></i>
+    </button>
+    <div class="collapse show" id="developmentMenu">
+      <a class="tool-link" data-nav-id="git-cheatsheet" href="#"><i class="bi bi-terminal"></i><span data-i18n="gitCheatsheet">Git cheatsheet</span></a>
+      <a class="tool-link" data-nav-id="random-port" href="#"><i class="bi bi-hdd-network"></i><span data-i18n="randomPortGenerator">Random port generator</span></a>
+      <a class="tool-link" data-nav-id="crontab" href="#"><i class="bi bi-clock-history"></i><span data-i18n="crontabGenerator">Crontab generator</span></a>
+      <a class="tool-link" data-nav-id="json-formatter" href="/tools/json-formatter.html"><i class="bi bi-braces"></i><span data-i18n="jsonPrettifyFormat">JSON prettify &amp; format</span></a>
+      <a class="tool-link" data-nav-id="json-minify" href="#"><i class="bi bi-file-code"></i><span data-i18n="jsonMinify">JSON minify</span></a>
+      <a class="tool-link" data-nav-id="json-csv" href="#"><i class="bi bi-table"></i><span data-i18n="jsonToCsv">JSON to CSV</span></a>
+      <a class="tool-link" data-nav-id="sql-formatter" href="#"><i class="bi bi-hdd-stack"></i><span data-i18n="sqlPrettifyFormat">SQL prettify &amp; format</span></a>
+      <a class="tool-link" data-nav-id="chmod" href="/tools/chmod-calculator.html"><i class="bi bi-file-lock"></i><span data-i18n="chmodCalculator">Chmod calculator</span></a>
+      <a class="tool-link" data-nav-id="docker-converter" href="#"><i class="bi bi-box"></i><span data-i18n="dockerRunConverter">Docker run converter</span></a>
+      <a class="tool-link" data-nav-id="xml-formatter" href="#"><i class="bi bi-file-earmark-code"></i><span data-i18n="xmlFormatter">XML formatter</span></a>
+    </div>
+
+    <button class="nav-section" type="button" data-bs-toggle="collapse" data-bs-target="#converterMenu" aria-expanded="false">
+      <span><i class="bi bi-arrow-left-right"></i><span class="nav-section-label" data-i18n="converter">Converter</span></span>
+      <i class="bi bi-chevron-down section-arrow"></i>
+    </button>
+    <div class="collapse" id="converterMenu">
+      <a class="tool-link" data-nav-id="unit-converter" href="#"><i class="bi bi-rulers"></i><span data-i18n="unitConverter">Unit converter</span></a>
+      <a class="tool-link" data-nav-id="timestamp-converter" href="#"><i class="bi bi-clock"></i><span data-i18n="timestampConverter">Timestamp converter</span></a>
+      <a class="tool-link" data-nav-id="color-converter" href="#"><i class="bi bi-palette"></i><span data-i18n="colorConverter">Color converter</span></a>
+    </div>
+
+    <button class="nav-section" type="button" data-bs-toggle="collapse" data-bs-target="#webMenu" aria-expanded="false">
+      <span><i class="bi bi-globe2"></i><span class="nav-section-label" data-i18n="web">Web</span></span>
+      <i class="bi bi-chevron-down section-arrow"></i>
+    </button>
+    <div class="collapse" id="webMenu">
+      <a class="tool-link" data-nav-id="url-parser" href="#"><i class="bi bi-link-45deg"></i><span data-i18n="urlParser">URL parser</span></a>
+      <a class="tool-link" data-nav-id="http-status" href="#"><i class="bi bi-shield-check"></i><span data-i18n="httpStatusExplorer">HTTP status explorer</span></a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="mini-profile">
+      <span class="avatar"><i class="bi bi-lightning-charge-fill"></i></span>
+      <div>
+        <strong>DevKit v1.0</strong>
+        <small data-i18n="developerUtilities">Developer utilities</small>
+      </div>
+    </div>
+  </div>
+</aside>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>

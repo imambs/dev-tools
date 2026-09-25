@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Format, validate and minify JSON in your browser." />
+  <title>JSON Formatter — DevKit Studio</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
+</head>
+<body data-active-nav="json-formatter">
+  <div class="app-shell" id="appShell">
+    <div id="sidebarMount"></div>
+
+    <div class="main-panel">
+      <div id="topbarMount"></div>
+      <div id="headerAdMount"></div>
+
+      <!-- This main area belongs only to this page. -->
+      <main class="content-wrap container-fluid tool-page">
+        <section class="tool-page-header">
+          <div>
+            <span class="eyebrow" data-i18n="developmentJson">Development / JSON</span>
+            <h1 data-i18n="jsonPageTitle">JSON prettify &amp; format</h1>
+            <p data-i18n="jsonPageIntro">Paste JSON below to validate and format it. Shared navigation, advertising regions and footer are imported separately.</p>
+          </div>
+        </section>
+
+        <section class="tool-workspace">
+          <label class="form-label fw-bold" for="jsonInput" data-i18n="jsonInput">JSON input</label>
+          <textarea id="jsonInput" class="form-control font-monospace" rows="14" placeholder='{"hello":"world"}'></textarea>
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="btn btn-brand" type="button" data-i18n="formatJson">Format JSON</button>
+            <button class="btn btn-outline-secondary" type="button" data-i18n="minify">Minify</button>
+            <button class="btn btn-outline-secondary" type="button" data-i18n="clear">Clear</button>
+          </div>
+        </section>
+      </main>
+
+      <div id="footerAdMount"></div>
+      <div id="footerMount"></div>
+    </div>
+  </div>
+
+  <!-- Shared page scroll controls -->
+  <div id="scrollControlsMount"></div>
+
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/layout.js?v=10"></script>
+  <script src="/app.js?v=10"></script>
+  <script src="/adsense.js?v=5"></script>
+</body>
+</html>

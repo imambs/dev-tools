@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Free browser-based chmod calculator for Linux and Unix file permissions. Convert read, write and execute permissions to numeric, symbolic and ready-to-run chmod commands." />
+  <meta name="keywords" content="chmod calculator, linux permissions, unix permissions, chmod command, file permissions calculator" />
+  <meta name="theme-color" content="#1DBF73" />
+  <title>Chmod Calculator — DevKit Studio</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
+
+  <!-- Page-specific styles only. No changes are required in styles.css. -->
+  <style>
+    .chmod-page {
+      padding-top: 30px;
+      padding-bottom: 34px;
+    }
+
+    .chmod-page *,
+    .chmod-page *::before,
+    .chmod-page *::after {
+      box-sizing: border-box;
+    }
+
+    .chmod-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .chmod-title-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .chmod-title-icon {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      color: #fff;
+      font-size: 1.35rem;
+      background: linear-gradient(145deg, var(--brand), var(--brand-deep));
+      box-shadow: 0 14px 30px rgba(29, 191, 115, .22);
+    }
+
+    .chmod-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 6px;
+      color: var(--brand);
+      font-size: .71rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .chmod-header h1 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(1.9rem, 4vw, 2.65rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      font-weight: 800;
+    }
+
+    .chmod-header p {
+      max-width: 760px;
+      margin: 9px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: .94rem;
+    }
+
+    .chmod-reset {
+      min-height: 42px;
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--panel-solid);
+      color: var(--text);
+      font-size: .83rem;
+      font-weight: 800;
+      transition: .18s ease;
+    }
+
+    .chmod-reset:hover {
+      color: var(--brand-deep);
+      border-color: color-mix(in srgb, var(--brand) 38%, var(--line));
+      background: var(--brand-soft);
+      transform: translateY(-1px);
+    }
+
+    .chmod-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, .78fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .chmod-card {
+      overflow: hidden;
+      background: var(--panel-solid);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chmod-card-head {
+      min-height: 70px;
+      padding: 17px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chmod-card-head h2 {
+      margin: 0;
+      color: var(--text);
+      font-size: 1.06rem;
+      font-weight: 800;
+      letter-spacing: -.02em;
+    }
+
+    .chmod-card-head span {
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 700;
+    }
+
+    .chmod-permissions-wrap {
+      overflow-x: auto;
+    }
+
+    .chmod-permissions {
+      width: 100%;
+      min-width: 540px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .chmod-permissions th,
+    .chmod-permissions td {
+      padding: 17px 12px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    .chmod-permissions th {
+      color: var(--muted);
+      background: color-mix(in srgb, var(--bg) 64%, transparent);
+      font-size: .73rem;
+      font-weight: 850;
+      letter-spacing: .025em;
+    }
+
+    .chmod-permissions th:first-child,
+    .chmod-permissions td:first-child {
+      width: 34%;
+      padding-left: 20px;
+      text-align: left;
+    }
+
+    .chmod-permissions tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .chmod-permissions tbody tr {
+      transition: background .16s ease;
+    }
+
+    .chmod-permissions tbody tr:hover {
+      background: color-mix(in srgb, var(--brand-soft) 48%, transparent);
+    }
+
+    .chmod-perm-name {
+      color: var(--text);
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    .chmod-perm-name small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .chmod-check {
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      cursor: pointer;
+      accent-color: var(--brand);
+    }
+
+    .chmod-below-table {
+      padding: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .chmod-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .chmod-input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .chmod-input {
+      min-width: 0;
+      flex: 1;
+      height: 46px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      outline: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .86rem;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .chmod-input:focus {
+      border-color: color-mix(in srgb, var(--brand) 58%, var(--line));
+      background: var(--panel-solid);
+      box-shadow: 0 0 0 4px var(--brand-soft);
+    }
+
+    .chmod-primary {
+      min-height: 46px;
+      border: 1px solid var(--brand);
+      border-radius: 13px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 850;
+      white-space: nowrap;
+      transition: .18s ease;
+    }
+
+    .chmod-primary:hover {
+      border-color: var(--brand-deep);
+      background: var(--brand-deep);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 9px 22px rgba(29, 191, 115, .2);
+    }
+
+    .chmod-result {
+      padding: 18px;
+    }
+
+    .chmod-result-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .chmod-metric {
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--brand) 22%, var(--line));
+      border-radius: 16px;
+      background:
+        linear-gradient(145deg,
+          color-mix(in srgb, var(--brand-soft) 76%, var(--panel-solid)),
+          var(--panel-solid));
+    }
+
+    .chmod-metric-label {
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: .67rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .chmod-metric-value {
+      overflow: hidden;
+      color: var(--brand-deep);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      line-height: 1.08;
+      font-weight: 850;
+      letter-spacing: -.04em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    [data-bs-theme="dark"] .chmod-metric-value {
+      color: var(--brand-2);
+    }
+
+    .chmod-command-box {
+      margin-top: 10px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--bg) 76%, var(--panel-solid));
+    }
+
+    .chmod-command-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: .69rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .chmod-copy {
+      border: 0;
+      border-radius: 9px;
+      padding: 5px 8px;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      font-size: .7rem;
+      font-weight: 850;
+      text-transform: none;
+      letter-spacing: 0;
+      transition: .16s ease;
+    }
+
+    .chmod-copy:hover {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .chmod-command-box code {
+      display: block;
+      overflow-x: auto;
+      color: var(--text);
+      font: 750 .81rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space: nowrap;
+    }
+
+    .chmod-presets-label {
+      display: block;
+      margin: 17px 0 8px;
+      color: var(--muted);
+      font-size: .69rem;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .chmod-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chmod-preset {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: var(--panel-solid);
+      color: var(--muted);
+      font-size: .73rem;
+      font-weight: 800;
+      transition: .16s ease;
+    }
+
+    .chmod-preset:hover,
+    .chmod-preset.active {
+      color: var(--brand-deep);
+      border-color: color-mix(in srgb, var(--brand) 34%, var(--line));
+      background: var(--brand-soft);
+    }
+
+    .chmod-info {
+      margin-top: 14px;
+      padding: 13px 14px;
+      border-left: 3px solid var(--brand);
+      border-radius: 0 11px 11px 0;
+      background: var(--brand-soft);
+      color: var(--muted);
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+
+    .chmod-help-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .chmod-help-item {
+      min-width: 0;
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: var(--panel-solid);
+      box-shadow: 0 7px 22px rgba(28, 39, 60, .025);
+    }
+
+    .chmod-help-icon {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+    }
+
+    .chmod-help-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+      font-size: .83rem;
+    }
+
+    .chmod-help-item span {
+      color: var(--muted);
+      font-size: .76rem;
+      line-height: 1.55;
+    }
+
+    .chmod-toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1100;
+      max-width: min(360px, calc(100vw - 28px));
+      padding: 11px 14px;
+      border-radius: 12px;
+      background: #13251b;
+      color: #fff;
+      box-shadow: 0 14px 40px rgba(0,0,0,.2);
+      font-size: .8rem;
+      font-weight: 750;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: .18s ease;
+      pointer-events: none;
+    }
+
+    .chmod-toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    [data-bs-theme="dark"] .chmod-toast {
+      background: #eaf8f0;
+      color: #102017;
+    }
+
+    @media (max-width: 1199.98px) {
+      .chmod-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(300px, .78fr);
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .chmod-page {
+        padding-top: 22px;
+      }
+
+      .chmod-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .chmod-help-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .chmod-header {
+        flex-direction: column;
+      }
+
+      .chmod-reset {
+        align-self: flex-start;
+      }
+
+      .chmod-title-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        border-radius: 14px;
+      }
+
+      .chmod-card {
+        border-radius: 18px;
+      }
+
+      .chmod-card-head {
+        min-height: 64px;
+        padding: 15px 16px;
+      }
+
+      .chmod-below-table,
+      .chmod-result {
+        padding: 15px;
+      }
+
+      .chmod-help-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .chmod-page {
+        padding-top: 18px;
+      }
+
+      .chmod-title-wrap {
+        gap: 12px;
+      }
+
+      .chmod-input-row {
+        flex-direction: column;
+      }
+
+      .chmod-primary {
+        width: 100%;
+      }
+
+      .chmod-result-top {
+        grid-template-columns: 1fr;
+      }
+
+      .chmod-permissions {
+        min-width: 470px;
+      }
+
+      .chmod-header p {
+        font-size: .88rem;
+      }
+    }
+  </style>
+</head>
+
+<body data-active-nav="chmod">
+  <div class="app-shell" id="appShell">
+    <!-- Shared sidebar -->
+    <div id="sidebarMount"></div>
+
+    <div class="main-panel">
+      <!-- Shared topbar -->
+      <div id="topbarMount"></div>
+
+      <!-- Common header ad region -->
+      <div id="headerAdMount"></div>
+
+      <!-- Chmod calculator: page-specific content only -->
+      <main class="content-wrap container-fluid chmod-page">
+        <section class="chmod-header" aria-labelledby="chmodTitle">
+          <div class="chmod-title-wrap">
+            <div class="chmod-title-icon" aria-hidden="true">
+              <i class="bi bi-file-lock2"></i>
+            </div>
+            <div>
+              <span class="chmod-kicker">
+                <i class="bi bi-terminal"></i>
+                <span data-i18n="chmodUtility">Linux / Unix utility</span>
+              </span>
+              <h1 id="chmodTitle" data-i18n="chmodCalculator">Chmod Calculator</h1>
+              <p data-i18n-html="chmodIntroHtml">Build Linux file permissions visually and instantly convert them into numeric, symbolic and ready-to-run <strong>chmod</strong> commands. Everything runs locally in your browser.</p>
+            </div>
+          </div>
+
+          <button class="chmod-reset" id="chmodReset" type="button">
+            <i class="bi bi-arrow-counterclockwise"></i>
+            <span data-i18n="resetTo755">Reset to 755</span>
+          </button>
+        </section>
+
+        <section class="chmod-layout">
+          <article class="chmod-card">
+            <div class="chmod-card-head">
+              <h2 data-i18n="permissionMatrix">Permission matrix</h2>
+              <span data-i18n="permissionWeights">Read 4 · Write 2 · Execute 1</span>
+            </div>
+
+            <div class="chmod-permissions-wrap">
+              <table class="chmod-permissions" aria-label="Chmod permission matrix">
+                <thead>
+                  <tr>
+                    <th data-i18n="permission">Permission</th>
+                    <th data-i18n="owner">Owner (u)</th>
+                    <th data-i18n="group">Group (g)</th>
+                    <th data-i18n="public">Public (o)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="chmod-perm-name"><span data-i18n="read">Read</span> <small>(4)</small></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="u" data-value="4" aria-label="Owner read permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="g" data-value="4" aria-label="Group read permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="o" data-value="4" aria-label="Public read permission"></td>
+                  </tr>
+                  <tr>
+                    <td class="chmod-perm-name"><span data-i18n="write">Write</span> <small>(2)</small></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="u" data-value="2" aria-label="Owner write permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="g" data-value="2" aria-label="Group write permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="o" data-value="2" aria-label="Public write permission"></td>
+                  </tr>
+                  <tr>
+                    <td class="chmod-perm-name"><span data-i18n="execute">Execute</span> <small>(1)</small></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="u" data-value="1" aria-label="Owner execute permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="g" data-value="1" aria-label="Group execute permission"></td>
+                    <td><input class="chmod-check" type="checkbox" data-who="o" data-value="1" aria-label="Public execute permission"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="chmod-below-table">
+              <label class="chmod-label" for="chmodPath" data-i18n="fileDirectoryPath">File or directory path</label>
+              <div class="chmod-input-row">
+                <input
+                  class="chmod-input"
+                  id="chmodPath"
+                  type="text"
+                  value="path/to/file"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-describedby="chmodPathHelp"
+                />
+                <button class="chmod-primary" id="chmodCopyMain" type="button">
+                  <i class="bi bi-clipboard"></i>
+                  <span data-i18n="copyChmod">Copy chmod</span>
+                </button>
+              </div>
+              <div id="chmodPathHelp" class="visually-hidden">
+                Enter the target file or directory path used in the generated chmod command.
+              </div>
+            </div>
+          </article>
+
+          <aside class="chmod-card chmod-result" aria-live="polite">
+            <div class="chmod-result-top">
+              <div class="chmod-metric">
+                <div class="chmod-metric-label" data-i18n="numeric">Numeric</div>
+                <div class="chmod-metric-value" id="chmodNumeric">755</div>
+              </div>
+
+              <div class="chmod-metric">
+                <div class="chmod-metric-label" data-i18n="symbolic">Symbolic</div>
+                <div class="chmod-metric-value" id="chmodSymbolic" style="font-size:1.38rem">rwxr-xr-x</div>
+              </div>
+            </div>
+
+            <div class="chmod-command-box">
+              <div class="chmod-command-head">
+                <span data-i18n="chmodCommand">chmod command</span>
+                <button class="chmod-copy" type="button" data-copy-target="chmodCommand">
+                  <i class="bi bi-clipboard"></i> <span data-i18n="copy">Copy</span>
+                </button>
+              </div>
+              <code id="chmodCommand">chmod 755 path/to/file</code>
+            </div>
+
+            <div class="chmod-command-box">
+              <div class="chmod-command-head">
+                <span data-i18n="symbolicCommand">symbolic command</span>
+                <button class="chmod-copy" type="button" data-copy-target="chmodSymbolicCommand">
+                  <i class="bi bi-clipboard"></i> <span data-i18n="copy">Copy</span>
+                </button>
+              </div>
+              <code id="chmodSymbolicCommand">chmod u=rwx,g=rx,o=rx path/to/file</code>
+            </div>
+
+            <span class="chmod-presets-label" data-i18n="commonPresets">Common presets</span>
+            <div class="chmod-presets" aria-label="Common chmod presets">
+              <button class="chmod-preset" type="button" data-mode="755" data-i18n="presetScripts">755 · Scripts</button>
+              <button class="chmod-preset" type="button" data-mode="644" data-i18n="presetFiles">644 · Files</button>
+              <button class="chmod-preset" type="button" data-mode="700" data-i18n="presetPrivate">700 · Private</button>
+              <button class="chmod-preset" type="button" data-mode="775" data-i18n="presetShared">775 · Shared</button>
+              <button class="chmod-preset" type="button" data-mode="600" data-i18n="presetSecrets">600 · Secrets</button>
+            </div>
+
+            <div class="chmod-info" id="chmodDescription">
+              Common for directories and executable scripts: owner can write, everyone can read and execute.
+            </div>
+          </aside>
+        </section>
+
+        <section class="chmod-help-grid" aria-label="Permission values">
+          <article class="chmod-help-item">
+            <span class="chmod-help-icon"><i class="bi bi-eye"></i></span>
+            <strong data-i18n="readValue">Read = 4</strong>
+            <span data-i18n="readHelp">Allows viewing file contents or listing directory contents.</span>
+          </article>
+
+          <article class="chmod-help-item">
+            <span class="chmod-help-icon"><i class="bi bi-pencil-square"></i></span>
+            <strong data-i18n="writeValue">Write = 2</strong>
+            <span data-i18n="writeHelp">Allows editing files or creating and removing items in a directory.</span>
+          </article>
+
+          <article class="chmod-help-item">
+            <span class="chmod-help-icon"><i class="bi bi-play-circle"></i></span>
+            <strong data-i18n="executeValue">Execute = 1</strong>
+            <span data-i18n="executeHelp">Allows running a file or entering and traversing a directory.</span>
+          </article>
+        </section>
+
+      </main>
+
+      <!-- Common ad region before common footer -->
+      <div id="footerAdMount"></div>
+      <div id="footerMount"></div>
+    </div>
+  </div>
+
+  <div class="chmod-toast" id="chmodToast" role="status" aria-live="polite">Copied to clipboard</div>
+
+  <!-- Shared page scroll controls -->
+  <div id="scrollControlsMount"></div>
+
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/layout.js?v=10"></script>
+  <script src="/app.js?v=10"></script>
+  <script src="/adsense.js?v=5"></script>
+
+  <script>
+    (() => {
+      const checks = [...document.querySelectorAll('.chmod-check')];
+      const numericEl = document.getElementById('chmodNumeric');
+      const symbolicEl = document.getElementById('chmodSymbolic');
+      const commandEl = document.getElementById('chmodCommand');
+      const symbolicCommandEl = document.getElementById('chmodSymbolicCommand');
+      const pathInput = document.getElementById('chmodPath');
+      const descriptionEl = document.getElementById('chmodDescription');
+      const toast = document.getElementById('chmodToast');
+      const resetButton = document.getElementById('chmodReset');
+      const copyMainButton = document.getElementById('chmodCopyMain');
+      const presetButtons = [...document.querySelectorAll('.chmod-preset')];
+
+      const permissionLetters = [
+        { value: 4, char: 'r' },
+        { value: 2, char: 'w' },
+        { value: 1, char: 'x' }
+      ];
+
+      const descriptions = {
+        en: {
+          '755': 'Common for directories and executable scripts: owner can write, everyone can read and execute.',
+          '644': 'Common for regular files: owner can edit, while group and public can read.',
+          '700': 'Private access: only the owner has read, write and execute permissions.',
+          '775': 'Owner and group can read, write and execute; public can read and execute.',
+          '600': 'Private file: only the owner can read and write.',
+          custom: 'Custom permission set. Review owner, group and public access before using it in production.'
+        },
+        de: {
+          '755': 'Häufig für Verzeichnisse und ausführbare Skripte: Der Besitzer darf schreiben, alle dürfen lesen und ausführen.',
+          '644': 'Häufig für normale Dateien: Der Besitzer darf bearbeiten, Gruppe und Öffentlichkeit dürfen lesen.',
+          '700': 'Privater Zugriff: Nur der Besitzer darf lesen, schreiben und ausführen.',
+          '775': 'Besitzer und Gruppe dürfen lesen, schreiben und ausführen; die Öffentlichkeit darf lesen und ausführen.',
+          '600': 'Private Datei: Nur der Besitzer darf lesen und schreiben.',
+          custom: 'Benutzerdefinierte Berechtigungen. Prüfe Besitzer-, Gruppen- und öffentliche Rechte vor dem produktiven Einsatz.'
+        },
+        es: {
+          '755': 'Común para directorios y scripts ejecutables: el propietario puede escribir y todos pueden leer y ejecutar.',
+          '644': 'Común para archivos normales: el propietario puede editar y el grupo y el público pueden leer.',
+          '700': 'Acceso privado: solo el propietario puede leer, escribir y ejecutar.',
+          '775': 'El propietario y el grupo pueden leer, escribir y ejecutar; el público puede leer y ejecutar.',
+          '600': 'Archivo privado: solo el propietario puede leer y escribir.',
+          custom: 'Conjunto de permisos personalizado. Revisa los permisos antes de usarlo en producción.'
+        }
+      };
+
+      const messages = {
+        en: { copied: 'Copied to clipboard', reset: 'Reset to chmod 755' },
+        de: { copied: 'In die Zwischenablage kopiert', reset: 'Auf chmod 755 zurückgesetzt' },
+        es: { copied: 'Copiado al portapapeles', reset: 'Restablecido a chmod 755' }
+      };
+
+      const currentLanguage = () => ['en', 'de', 'es'].includes(document.documentElement.lang)
+        ? document.documentElement.lang
+        : 'en';
+
+      const stateFor = who => {
+        const active = checks.filter(
+          item => item.dataset.who === who && item.checked
+        );
+
+        const number = active.reduce(
+          (sum, item) => sum + Number(item.dataset.value),
+          0
+        );
+
+        const symbols = permissionLetters
+          .map(permission =>
+            active.some(item => Number(item.dataset.value) === permission.value)
+              ? permission.char
+              : '-'
+          )
+          .join('');
+
+        return { number, symbols };
+      };
+
+      const compactSymbolic = symbols => symbols.replaceAll('-', '');
+
+      const updatePresetState = numeric => {
+        presetButtons.forEach(button => {
+          button.classList.toggle('active', button.dataset.mode === numeric);
+        });
+      };
+
+      const update = () => {
+        const owner = stateFor('u');
+        const group = stateFor('g');
+        const other = stateFor('o');
+
+        const numeric = `${owner.number}${group.number}${other.number}`;
+        const symbolic = `${owner.symbols}${group.symbols}${other.symbols}`;
+        const path = pathInput.value.trim() || 'path/to/file';
+
+        numericEl.textContent = numeric;
+        symbolicEl.textContent = symbolic;
+        commandEl.textContent = `chmod ${numeric} ${path}`;
+        symbolicCommandEl.textContent =
+          `chmod u=${compactSymbolic(owner.symbols)},g=${compactSymbolic(group.symbols)},o=${compactSymbolic(other.symbols)} ${path}`;
+
+        const lang = currentLanguage();
+        descriptionEl.textContent = descriptions[lang][numeric] || descriptions[lang].custom;
+        updatePresetState(numeric);
+      };
+
+      const applyMode = mode => {
+        const digits = mode.split('').map(Number);
+        const values = { u: digits[0], g: digits[1], o: digits[2] };
+
+        checks.forEach(item => {
+          const value = Number(item.dataset.value);
+          item.checked = (values[item.dataset.who] & value) === value;
+        });
+
+        update();
+      };
+
+      let toastTimer;
+
+      const showToast = message => {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1400);
+      };
+
+      const fallbackCopy = text => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        textarea.remove();
+      };
+
+      const copyText = async text => {
+        try {
+          if (window.isSecureContext && navigator.clipboard) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            fallbackCopy(text);
+          }
+          showToast(messages[currentLanguage()].copied);
+        } catch (error) {
+          fallbackCopy(text);
+          showToast(messages[currentLanguage()].copied);
+        }
+      };
+
+      checks.forEach(item => item.addEventListener('change', update));
+      pathInput.addEventListener('input', update);
+
+      presetButtons.forEach(button => {
+        button.addEventListener('click', () => applyMode(button.dataset.mode));
+      });
+
+      document.querySelectorAll('[data-copy-target]').forEach(button => {
+        button.addEventListener('click', () => {
+          const target = document.getElementById(button.dataset.copyTarget);
+          if (target) copyText(target.textContent);
+        });
+      });
+
+      copyMainButton.addEventListener('click', () => copyText(commandEl.textContent));
+
+      resetButton.addEventListener('click', () => {
+        pathInput.value = 'path/to/file';
+        document.addEventListener('devkit:language-changed', update);
+
+      applyMode('755');
+        showToast(messages[currentLanguage()].reset);
+      });
+
+      applyMode('755');
+    })();
+  </script>
+</body>
+</html>

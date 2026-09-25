@@ -1,0 +1,30 @@
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="icon-btn" id="sidebarToggle" type="button" aria-label="Toggle sidebar" data-i18n-aria="toggleSidebar">
+      <i class="bi bi-layout-sidebar-inset"></i>
+    </button>
+    <a class="home-btn d-none d-sm-inline-flex" href="/" aria-label="Home"><i class="bi bi-house-door"></i></a>
+  </div>
+
+  <label class="global-search" for="globalSearch">
+    <i class="bi bi-search"></i>
+    <input id="globalSearch" type="search" placeholder="Search developer tools" data-i18n-placeholder="searchDeveloperTools" autocomplete="off" />
+    <kbd>Ctrl K</kbd>
+  </label>
+
+  <div class="topbar-actions">
+    <div class="dropdown language-menu">
+      <button class="compact-btn language-toggle dropdown-toggle" data-bs-toggle="dropdown" type="button" aria-label="Choose language" data-i18n-aria="chooseLanguage" title="Language" data-i18n-title="chooseLanguage">
+        <i class="bi bi-translate"></i><span class="language-label">English</span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+        <li><button class="dropdown-item active" type="button" data-lang="en" role="menuitemradio" aria-checked="true">English</button></li>
+        <li><button class="dropdown-item" type="button" data-lang="de" role="menuitemradio" aria-checked="false">Deutsch</button></li>
+        <li><button class="dropdown-item" type="button" data-lang="es" role="menuitemradio" aria-checked="false">Español</button></li>
+      </ul>
+    </div>
+    <a class="icon-btn d-none d-sm-inline-flex" href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle theme"><i class="bi bi-moon-stars"></i></button>
+    <a class="coffee-btn d-none d-xl-inline-flex" href="#"><i class="bi bi-cup"></i><span>Support this project</span></a>
+  </div>
+</header>
