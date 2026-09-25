@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DevKit Studio — responsive browser-based tools for developers." />
+  <title>DevKit Studio — Developer Tools</title>
+  <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="/styles.css?v=10" />
+</head>
+<body data-active-nav="home">
+  <div class="app-shell" id="appShell">
+    <!-- Shared left navigation -->
+    <div id="sidebarMount"></div>
+
+    <div class="main-panel">
+      <!-- Shared top navigation -->
+      <div id="topbarMount"></div>
+
+      <!-- Common responsive AdSense region directly below the top bar -->
+      <div id="headerAdMount"></div>
+
+      <!-- Dashboard-specific content only -->
+      <main class="content-wrap container-fluid">
+        <section class="section-head" id="toolGrid">
+          <div>
+            <span class="eyebrow" data-i18n="developerToolbox">Developer toolbox</span>
+            <h1 data-i18n="allTools">All tools</h1>
+            <p data-i18n="dashboardDescription">Fast utilities for coding, security, data and web workflows.</p>
+          </div>
+          <div class="tool-filters" role="group" aria-label="Tool categories">
+            <button class="filter-chip active" type="button" data-filter="all" data-i18n="all">All</button>
+            <button class="filter-chip" type="button" data-filter="generate" data-i18n="generate">Generate</button>
+            <button class="filter-chip" type="button" data-filter="security" data-i18n="security">Security</button>
+            <button class="filter-chip" type="button" data-filter="format" data-i18n="format">Format</button>
+          </div>
+        </section>
+
+        <div class="tools-grid" id="toolsGrid">
+          <!-- Row 1: 4 tools -->
+          <article class="tool-card" data-tool-id="token-generator" data-category="generate" data-name="token generator random string">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-shuffle"></i></span><button class="favorite-btn" type="button" aria-label="Favorite Token generator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="generate">Generate</span><h3 data-i18n="tokenGenerator">Token generator</h3><p data-i18n="tokenGeneratorDesc">Create secure random strings with custom length, character sets and presets.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="hash-text" data-category="security" data-name="hash text md5 sha1 sha256 sha512">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-fingerprint"></i></span><button class="favorite-btn" type="button" aria-label="Favorite Hash text"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="security">Security</span><h3 data-i18n="hashText">Hash text</h3><p data-i18n="hashTextDesc">Hash text using MD5, SHA-1, SHA-256 and SHA-512 in one clean interface.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="bcrypt" data-category="security" data-name="bcrypt password hash compare">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-shield-lock"></i></span><button class="favorite-btn" type="button" aria-label="Favorite Bcrypt"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="security">Security</span><h3 data-i18n="bcrypt">Bcrypt</h3><p data-i18n="bcryptDesc">Generate and compare password hashes with adjustable cost settings.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="uuid-generator" data-category="generate" data-name="uuid generator v4 v7 unique identifier">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-upc-scan"></i></span><button class="favorite-btn" type="button" aria-label="Favorite UUID generator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="generate">Generate</span><h3 data-i18n="uuidGenerator">UUID generator</h3><p data-i18n="uuidGeneratorDesc">Create standards-compliant UUIDs instantly, including batch generation.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <!-- Row 2: 4 tools -->
+          <article class="tool-card" data-tool-id="ulid-generator" data-category="generate" data-name="ulid generator sortable identifier">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-sort-numeric-down"></i></span><button class="favorite-btn" type="button" aria-label="Favorite ULID generator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="generate">Generate</span><h3 data-i18n="ulidGenerator">ULID generator</h3><p data-i18n="ulidGeneratorDesc">Generate lexicographically sortable identifiers for modern distributed systems.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="encrypt-decrypt" data-category="security" data-name="encrypt decrypt text aes crypto">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-key"></i></span><button class="favorite-btn" type="button" aria-label="Favorite Encrypt decrypt text"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="security">Security</span><h3 data-i18n="encryptDecrypt">Encrypt / decrypt</h3><p data-i18n="encryptDecryptDesc">Encode and decode text with clear settings and copy-ready results.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="bip39-generator" data-category="generate" data-name="bip39 passphrase mnemonic generator">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-list-check"></i></span><button class="favorite-btn" type="button" aria-label="Favorite BIP39 generator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="generate">Generate</span><h3 data-i18n="bip39Passphrase">BIP39 passphrase</h3><p data-i18n="bip39PassphraseDesc">Generate BIP39-compatible mnemonic phrases with entropy options.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="hmac-generator" data-category="security" data-name="hmac generator authentication code">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-code-square"></i></span><button class="favorite-btn" type="button" aria-label="Favorite HMAC generator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="security">Security</span><h3 data-i18n="hmacGenerator">HMAC generator</h3><p data-i18n="hmacGeneratorDesc">Compute hash-based message authentication codes from text and secret keys.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <!-- After two full rows: half-width ad + two normal tool tiles -->
+          <div class="dashboard-ad-cell" data-component-src="/components/dashboard-ad.html"></div>
+
+          <article class="tool-card" data-tool-id="json-formatter" data-category="format" data-name="json formatter prettify minify">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-braces"></i></span><button class="favorite-btn" type="button" aria-label="Favorite JSON formatter"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="format">Format</span><h3 data-i18n="jsonFormatter">JSON formatter</h3><p data-i18n="jsonFormatterDesc">Beautify, validate and minify JSON with readable error feedback.</p></div>
+            <a class="tool-card-footer" href="/tools/json-formatter.html"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></a>
+          </article>
+
+          <article class="tool-card" data-tool-id="sql-formatter" data-category="format" data-name="sql formatter query prettify">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-hdd-stack"></i></span><button class="favorite-btn" type="button" aria-label="Favorite SQL formatter"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="format">Format</span><h3 data-i18n="sqlFormatter">SQL formatter</h3><p data-i18n="sqlFormatterDesc">Prettify SQL queries with indentation, keyword casing and compact output.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="xml-formatter" data-category="format" data-name="xml formatter beautify minify">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-file-earmark-code"></i></span><button class="favorite-btn" type="button" aria-label="Favorite XML formatter"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="format">Format</span><h3 data-i18n="xmlFormatterTitle">XML formatter</h3><p data-i18n="xmlFormatterDesc">Beautify or compact XML while preserving structure and readability.</p></div>
+            <div class="tool-card-footer"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></div>
+          </article>
+
+          <article class="tool-card" data-tool-id="chmod-calculator" data-category="security" data-name="chmod calculator unix permissions">
+            <div class="tool-card-top"><span class="tool-icon"><i class="bi bi-file-earmark-lock2"></i></span><button class="favorite-btn" type="button" aria-label="Favorite Chmod calculator"><i class="bi bi-heart"></i></button></div>
+            <div><span class="tool-meta" data-i18n="security">Security</span><h3 data-i18n="chmodCalculator">Chmod calculator</h3><p data-i18n="chmodCalculatorDesc">Translate Unix permissions between symbolic and numeric notation.</p></div>
+            <a class="tool-card-footer" href="/tools/chmod-calculator.html"><span data-i18n="openTool">Open tool</span><i class="bi bi-arrow-up-right"></i></a>
+          </article>
+        </div>
+
+        <div class="empty-state d-none" id="emptyState">
+          <i class="bi bi-search"></i>
+          <h3 data-i18n="noToolsFound">No tools found</h3>
+          <p data-i18n="noToolsFoundHint">Try a different keyword or reset the category filter.</p>
+        </div>
+      </main>
+
+      <!-- Shared ad region before the shared footer -->
+      <div id="footerAdMount"></div>
+
+      <!-- Shared footer -->
+      <div id="footerMount"></div>
+    </div>
+  </div>
+
+  <!-- Shared page scroll controls -->
+  <div id="scrollControlsMount"></div>
+
+  <script src="/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/layout.js?v=10"></script>
+  <script src="/app.js?v=10"></script>
+  <script src="/adsense.js?v=5"></script>
+</body>
+</html>
